@@ -12,12 +12,12 @@
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 # include <libc.h>
 
 typedef struct		s_links
 {
-	t_room			*room;
+	void			*room;
 	struct s_links	*next;
 }					t_links;
 
@@ -29,7 +29,9 @@ typedef struct		s_room
 	int				ant;
 	int				count;
 	int				distance;
+	int				end;
 	t_links			*links;
+	t_links			*head;
 	struct s_room	*next;
 }					t_room;
 
@@ -42,6 +44,8 @@ typedef struct	s_lem
 	char		*number;
 	t_room		*start;
 	t_room		*end;
+	t_room		*rooms;
+	t_room		*head;
 }				t_lem;
 
 int				error_check(int argc, char **argv);

@@ -19,8 +19,8 @@ OBJ = $(SRCS:.c=.o)
 FLAG = -Wall -Werror -Wextra
 
 $(NAME):
-	@gcc $(FLAG) $(addprefix srcs/, $(SRCS)) -L ../libft -lft -o $(NAME)
 	@make -C libft/
+	@gcc $(FLAG) $(addprefix srcs/, $(SRCS)) -L ./libft -lft -o $(NAME)
 	@printf "\e[32m[✓] LEM-IN COMPILED\n"
 	@make -C ./ clean
 
