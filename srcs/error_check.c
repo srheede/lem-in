@@ -12,18 +12,6 @@
 
 #include "../lem-in.h"
 
-int		check_flag(char *str)
-{
-	int	err;
-
-	err = 0;
-	if (!ft_strcmp(str, ""))
-		err++;
-	if (!err)
-		return (0);
-	return (1);
-}
-
 int		error_check(int argc, char **argv)
 {
 	int		i;
@@ -31,7 +19,7 @@ int		error_check(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (check_arg(argc, argv, argv[i]))
+		if (check_arg(argv[i]))
 			return (1);
 		i++;
 	}

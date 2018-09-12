@@ -10,17 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM-IN_H
-# define LEM-IN_H
+#ifndef LEM_IN_H
+# define LEM_IN_H
 # include "../libft/libft.h"
 # include <libc.h>
 
+typedef struct		s_links
+{
+	t_room			*room;
+	struct s_links	*next;
+}					t_links;
+
+typedef struct		s_room
+{
+	char			*name;
+	int				x;
+	int				y;
+	int				ant;
+	int				count;
+	int				distance;
+	t_links			*links;
+	struct s_room	*next;
+}					t_room;
+
 typedef struct	s_lem
 {
-	int			file;
-	int			debug;
+	int			n_ants;
+	int			visualizer;
+	int			*arr;
+	char		*buffer;
+	char		*number;
+	t_room		*start;
+	t_room		*end;
 }				t_lem;
 
-
+int				error_check(int argc, char **argv);
 
 #endif
