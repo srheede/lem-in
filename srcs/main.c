@@ -14,6 +14,9 @@
 
 void	set_zero(t_lem *lem)
 {
+	lem->rooms = NULL;
+	lem->head = NULL;
+	lem->arr = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
 	lem->buffer = NULL;
@@ -39,7 +42,7 @@ void	count_ants(t_lem *lem)
 {
 	get_next_line(0, &lem->buffer);
 	lem->number = ft_itoa(ft_atoi(lem->buffer));
-	if (!strcmp(lem->buffer, lem->number))
+	if (strcmp(lem->buffer, lem->number))
 		delmem(lem, 1);
 	lem->n_ants = ft_atoi(lem->buffer);
 	ft_strdel(&lem->number);
@@ -178,27 +181,32 @@ void	assign_link(t_lem *lem)
 	t_room	*tmp;
 	t_room	*first;
 
+	ft_putstr("hello");
 	arr = ft_strsplit(lem->buffer, '-');
-	tmp = lem->head;
-	while (tmp->next)
+	if (ft_arrlen(arr) != 2)
 	{
-		if (!ft_strcmp(tmp->name, arr[0]))
+		tmp = lem->head;
+		while (tmp->next)
 		{
-			first = tmp;
-			break ;
+			if (!ft_strcmp(tmp->name, arr[0]))
+			{
+				first = tmp;
+				break ;
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		tmp = lem->head;
+		while (tmp->next)
+		{
+			if (!ft_strcmp(tmp->name, arr[1]))
+				break ;
+			tmp = tmp->next;
+		}
+		if (tmp && first)
+			link_rooms(tmp, first);
 	}
-	tmp = lem->head;
-	while (tmp->next)
-	{
-		if (!ft_strcmp(tmp->name, arr[1]))
-			break ;
-		tmp = tmp->next;
-	}
-	if (tmp && first)
-		link_rooms(tmp, first);
 	ft_arrdel(arr);
+	ft_putstr("hello");
 }
 
 void	read_input(t_lem *lem)
