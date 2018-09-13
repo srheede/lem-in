@@ -31,7 +31,7 @@ typedef struct		s_room
 	int				distance;
 	int				end;
 	t_links			*links;
-	t_links			*head;
+	t_links			*links_head;
 	struct s_room	*next;
 }					t_room;
 
