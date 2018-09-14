@@ -35,19 +35,23 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-typedef struct	s_lem
+typedef struct		s_lem
 {
-	int			n_ants;
-	int			visualizer;
-	int			*arr;
-	char		*buffer;
-	char		*number;
-	t_room		*start;
-	t_room		*end;
-	t_room		*rooms;
-	t_room		*head;
-}				t_lem;
+	int				n_ants;
+	int				visualizer;
+	int				*arr;
+	char			*buffer;
+	char			*number;
+	t_room			*start;
+	t_room			*end;
+	t_room			*rooms;
+	t_room			*head;
+}					t_lem;
 
-int				error_check(int argc, char **argv);
+void				delmem(t_lem *lem, int err);
+void				count_ants(t_lem *lem);
+int					check_start(t_lem *lem);
+void				create_room(t_lem *lem, char **arr);
+void				assign_links(t_lem *lem);
 
 #endif
