@@ -63,9 +63,9 @@ void	create_link(t_room *first, t_room *second)
 
 void	assign_link(t_lem *lem, char **arr, t_room *tmp, t_room *first)
 {
-	if (!lem->head)
+	if (!lem->rooms_head)
 		delmem(lem, 1);
-	tmp = lem->head;
+	tmp = lem->rooms_head;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, arr[0]))
@@ -75,7 +75,7 @@ void	assign_link(t_lem *lem, char **arr, t_room *tmp, t_room *first)
 		}
 		tmp = tmp->next;
 	}
-	tmp = lem->head;
+	tmp = lem->rooms_head;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, arr[1]))

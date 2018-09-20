@@ -21,7 +21,7 @@ FLAG = -Wall -Werror -Wextra
 $(NAME):
 	@make -C libft/
 	@gcc $(FLAG) $(addprefix srcs/, $(SRCS)) -L ./libft -lft -o $(NAME)
-	@printf "\e[32m[✓] LEM-IN COMPILED\n"
+	@printf "\e[32m[✓] LEM-IN COMPILED\n\e[0m"
 	@make -C ./ clean
 
 .PHONY: all
@@ -31,13 +31,13 @@ all: $(NAME)
 clean:
 	@rm -f $(OBJ)
 	@make -C libft/ clean
-	@printf "\e[31m[✓] LEM-IN OBJECT FILES REMOVED\n"
+	@printf "\e[31m[✓] LEM-IN OBJECT FILES REMOVED\n\e[m"
 
 .PHONY:	fclean
 fclean: clean
 	@rm -f $(NAME)
 	@make -C libft/ fclean
-	@printf "\e[31m[✓] LEM-IN EXCECUTABLE REMOVED\n"
+	@printf "\e[31m[✓] LEM-IN EXCECUTABLE REMOVED\n\e[m"
 
 .PHONY:	re
 re: fclean all

@@ -37,6 +37,7 @@ typedef struct		s_room
 
 typedef struct		s_lem
 {
+	int				count;
 	int				n_ants;
 	int				visualizer;
 	int				*arr;
@@ -45,7 +46,7 @@ typedef struct		s_lem
 	t_room			*start;
 	t_room			*end;
 	t_room			*rooms;
-	t_room			*head;
+	t_room			*rooms_head;
 }					t_lem;
 
 void				delmem(t_lem *lem, int err);

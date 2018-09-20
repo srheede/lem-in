@@ -42,7 +42,7 @@ void	create_room(t_lem *lem, char **arr)
 		if (!lem->rooms)
 		{
 			lem->rooms = roomnew(arr[0], ft_atoi(x), ft_atoi(y));
-			lem->head = lem->rooms;
+			lem->rooms_head = lem->rooms;
 		}
 		else
 		{
@@ -87,7 +87,6 @@ void	set_end(t_lem *lem)
 		delmem(lem, 1);
 	}
 	lem->end = lem->rooms;
-	lem->rooms->end = 1;
 	ft_arrdel(arr);
 }
 
