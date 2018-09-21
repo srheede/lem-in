@@ -65,45 +65,20 @@ void	read_input(t_lem *lem)
 		ft_strdel(&lem->buffer);
 }
 
-void	assign_val_room(t_lem *lem, t_room *tmp)
+void	assign_values(t_lem *lem, t_room *tmp)
 {
 	t_links *tmp_links;
-	t_room *tmp2;
 	t_room	*room;
-	t_room 	*check_room;
-	t_links	*check_link;
-	int		err;
 
 	lem->count++;
 	tmp_links = tmp->links_head;
 	while (tmp_links)
 	{
-		if (tmp_links->room == lem->start)
-			break ;
-		if (tmp_links->room == lem->end)
+		room = (t_room *)tmp_links->room;
+		if ((room->end > lem->count || room->end == 0) && room != lem->end)
 		{
-			tmp_links = tmp_links->next;
-			continue ;
-		}
-		err = 0;
-		room = tmp_links->room;
-		check_link = room->links_head;
-		while (check_link)
-		{
-			check_room = check_link->room;
-			if (check_room->end > lem->count || check_room->end == 0)
-				err++;
-			check_link = check_link->next;
-		}
-		if (err)
-		{
-			tmp2 = (t_room *)tmp_links->room;
-			if (tmp2 != lem->end)
-			{
-				if (tmp2->end > lem->count || tmp2->end == 0)
-					tmp2->end = lem->count;
-			}
-			assign_val_room(lem, tmp_links->room);
+			room->end = lem->count;
+			assign_values(lem, room);
 		}
 		tmp_links = tmp_links->next;
 	}
@@ -124,7 +99,7 @@ int		main(int argc, char **argv)
 	ft_putnbr(lem.n_ants);
 	ft_putchar('\n');
 	read_input(&lem);
-	assign_val_room(&lem, lem.end);
+	assign_values(&lem, lem.end);
 	while (lem.rooms_head)
 	{
 		ft_putstr("\nroom name: ");
