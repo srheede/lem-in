@@ -49,6 +49,8 @@ void	create_room(t_lem *lem, char **arr)
 			lem->rooms->next = roomnew(arr[0], ft_atoi(x), ft_atoi(y));
 			lem->rooms = lem->rooms->next;
 		}
+		ft_putstr(lem->buffer);
+		ft_putchar('\n');
 	}
 	ft_strdel(&x);
 	ft_strdel(&y);

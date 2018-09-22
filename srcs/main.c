@@ -75,6 +75,8 @@ void	assign_values(t_lem *lem, t_room *tmp)
 	while (tmp_links)
 	{
 		room = (t_room *)tmp_links->room;
+		if (room == lem->start)
+			break ;
 		if ((room->end > lem->count || room->end == 0) && room != lem->end)
 		{
 			room->end = lem->count;
@@ -85,55 +87,83 @@ void	assign_values(t_lem *lem, t_room *tmp)
 	lem->count--;
 }
 
+t_room	*choose_room(t_room *current)
+{
+	t_links *links;
+	t_room	*room;
+	t_room	*tmp;
+
+	links = current->links_head;
+	tmp = NULL;
+	while (links)
+	{
+		room = (t_room *)links->room;
+		if (!room->ant)
+		{
+			if ((!tmp || tmp->end > room->end) && room->end)
+				tmp = room;
+		}
+		links = links->next;
+	}
+	return(tmp);
+}
+
+void	send_ants(t_lem *lem)
+{
+	t_room	*room;
+	t_room	*tmp;
+	t_links	*pos_ants;
+	int		count;
+
+	count = 1;
+	room = choose_room(lem->start);
+	pos_ants = linknew(room);
+	lem->pos_ants = pos_ants;
+	while(room)
+	{
+		room->ant = count;
+		count++;
+		lem->n_ants--;
+		room = choose_room(lem->start);
+		pos_ants->next = linknew(room);
+		pos_ants = pos_ants->next;
+	}
+	pos_ants = lem->pos_ants;
+	while (pos_ants->next)
+	{
+		tmp = (t_room *)pos_ants->room;
+		room = choose_room(tmp);
+		room->ant = tmp->ant;
+		tmp->ant = 0;
+		pos_ants = pos_ants->next;
+	}
+	while (lem->rooms_head)
+	{
+		ft_putstr(lem->rooms_head->name);
+		ft_putchar(' ');
+		ft_putnbr(lem->rooms_head->ant);
+		ft_putchar(' ');
+		lem->rooms_head = lem->rooms_head->next;
+	}
+}
+/*
+void	move_ants(t_lem *lem)
+{
+
+}
+*/
 int		main(int argc, char **argv)
 {
 	t_lem	lem;
-	t_room	*tmp;
 
 	set_zero(&lem);
 	if (argc == 2)
 		if (strcmp(argv[1], "-v"))
 			lem.visualizer = 1;
 	count_ants(&lem);
-	ft_putstr("ant count: ");
-	ft_putnbr(lem.n_ants);
-	ft_putchar('\n');
 	read_input(&lem);
 	assign_values(&lem, lem.end);
-	while (lem.rooms_head)
-	{
-		ft_putstr("\nroom name: ");
-		ft_putstr(lem.rooms_head->name);
-		ft_putchar('\n');
-		ft_putstr("room x coordinate: ");
-		ft_putnbr(lem.rooms_head->x);
-		ft_putchar('\n');
-		ft_putstr("room y coordinate: ");
-		ft_putnbr(lem.rooms_head->y);
-		ft_putchar('\n');
-		while (lem.rooms_head->links_head)
-		{
-			ft_putstr("link in room ");
-			ft_putstr(lem.rooms_head->name);
-			ft_putstr(": ");
-			tmp = (t_room *)lem.rooms_head->links_head->room;
-			ft_putstr(tmp->name);
-			ft_putchar('\n');
-			ft_putstr("link value: ");
-			ft_putnbr(tmp->end);
-			ft_putchar('\n');
-			lem.rooms_head->links_head = lem.rooms_head->links_head->next;
-		}
-		lem.rooms_head = lem.rooms_head->next;
-	}
-			ft_putstr("start name: ");
-		if (lem.start)
-			ft_putstr(lem.start->name);
-		ft_putchar('\n');
-				ft_putstr("end name: ");
-		if (lem.end)
-			ft_putstr(lem.end->name);
-		ft_putchar('\n');
+	send_ants(&lem);
 	delmem(&lem, 0);
 	return (0);
 }

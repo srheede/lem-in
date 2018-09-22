@@ -47,12 +47,14 @@ typedef struct		s_lem
 	t_room			*end;
 	t_room			*rooms;
 	t_room			*rooms_head;
+	t_links			*pos_ants;
 }					t_lem;
 
 void				delmem(t_lem *lem, int err);
 void				count_ants(t_lem *lem);
 int					check_start(t_lem *lem);
 void				create_room(t_lem *lem, char **arr);
+t_links				*linknew(t_room *room);
 void				assign_links(t_lem *lem);
 
 #endif

@@ -1,6 +1,7 @@
 10
 ##start
 start 0 0
+bleh bleh bleh
 left1 1 1
 left2 2 2
 left3 3 3
@@ -8,6 +9,7 @@ left4 4 4
 right1 1 1
 right2 2 2
 right3 3 3
+#comment
 right4 4 4
 ##end
 end 5 5
@@ -15,13 +17,15 @@ start-left1
 start-left4
 left1-left2
 left2-left3
+ble-blu
 left3-end
 start-right1
 right1-right2
-left2-right2
-right1-left3
-left1-right3
-left1-right2
+#comment
+#left2-right2
+#right1-left3
+#left1-right3
+#left1-right2
 right2-right3
 right3-right4
 right3-end

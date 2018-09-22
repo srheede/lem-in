@@ -19,6 +19,8 @@ void	count_ants(t_lem *lem)
 	if (strcmp(lem->buffer, lem->number) || ft_atoi(lem->buffer) < 1)
 		delmem(lem, 1);
 	lem->n_ants = ft_atoi(lem->buffer);
+	ft_putnbr(lem->n_ants);
+	ft_putchar('\n');
 	ft_strdel(&lem->number);
 	ft_strdel(&lem->buffer);
 }
@@ -86,6 +88,8 @@ void	assign_link(t_lem *lem, char **arr, t_room *tmp, t_room *first)
 	{
 		create_link(first, tmp);
 		create_link(tmp, first);
+		ft_putstr(lem->buffer);
+		ft_putchar('\n');
 	}
 }
 
