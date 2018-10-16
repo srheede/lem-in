@@ -19,6 +19,8 @@ void	count_ants(t_lem *lem)
 	if (strcmp(lem->buffer, lem->number) || ft_atoi(lem->buffer) < 1)
 		delmem(lem, 1);
 	lem->n_ants = ft_atoi(lem->buffer);
+	lem->n_end = lem->n_ants;
+	lem->n_total = lem->n_ants;
 	ft_putnbr(lem->n_ants);
 	ft_putchar('\n');
 	ft_strdel(&lem->number);

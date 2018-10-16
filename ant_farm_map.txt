@@ -1,4 +1,4 @@
-10
+100
 ##start
 start 0 0
 bleh bleh bleh
@@ -6,11 +6,24 @@ left1 1 1
 left2 2 2
 left3 3 3
 left4 4 4
+middle1 1 1
+middle2 2 2
+middle3 3 3
+middle4 4 4
 right1 1 1
 right2 2 2
 right3 3 3
 #comment
 right4 4 4
+more1 1 1
+more2 2 2
+more3 3 3
+more5 5 5
+more6 6 6
+more7 7 7
+more8 8 8
+more9 9 9
+more10 10 10
 ##end
 end 5 5
 start-left1
@@ -19,13 +32,41 @@ left1-left2
 left2-left3
 ble-blu
 left3-end
+start-middle1
+middle1-right2
+middle1-middle2
+middle1-left3
+middle2-left1
+middle2-middle3
+middle3-middle4
+middle4-end
+more7-start
+right3-more7
+more7-more2
+more2-more3
+more3-right3
+more8-more2
+more10-end
+more6-more10
+more6-more4
+start-more5
+more9-more2
+more9-left2
+more2-end
+more4-end
+more9-more2
+more9-start
+more5-right2
+right1-more7
+more7-left3
+more6-more8
 start-right1
 right1-right2
 #comment
-#left2-right2
-#right1-left3
-#left1-right3
-#left1-right2
+left2-right2
+right1-left3
+left1-right3
+left1-right2
 right2-right3
 right3-right4
 right3-end

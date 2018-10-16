@@ -39,6 +39,8 @@ typedef struct		s_lem
 {
 	int				count;
 	int				n_ants;
+	int				n_end;
+	int				n_total;
 	int				visualizer;
 	int				*arr;
 	char			*buffer;
@@ -48,6 +50,8 @@ typedef struct		s_lem
 	t_room			*rooms;
 	t_room			*rooms_head;
 	t_links			*pos_ants;
+	t_links			*pos_new;
+	t_links			*pos_new_last;
 }					t_lem;
 
 void				delmem(t_lem *lem, int err);
