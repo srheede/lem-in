@@ -35,6 +35,15 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
+typedef	struct		s_move
+{
+	t_room			*room;
+	t_room			*tmp;
+	t_links 		*pos_ants;
+	t_links			*pos_new;
+	t_links			*tmp_node;
+}					t_move;
+
 typedef struct		s_lem
 {
 	int				count;
@@ -60,5 +69,7 @@ int					check_start(t_lem *lem);
 void				create_room(t_lem *lem, char **arr);
 t_links				*linknew(t_room *room);
 void				assign_links(t_lem *lem);
+t_room				*choose_room(t_lem *lem, t_room *current);
+int					move_ants(t_lem *lem);
 
 #endif
