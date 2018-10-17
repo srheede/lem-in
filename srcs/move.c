@@ -12,25 +12,38 @@
 
 #include "../lem-in.h"
 
+void	move4(t_lem *lem, t_move *move)
+{
+	move->pos_new = linknew(move->room);
+	lem->pos_new = move->pos_new;
+	lem->pos_ants = move->pos_new;
+}
 
+void	move2(t_lem *lem, t_send *send, t_move *move)
+{
+	move->pos_new = linknew(move->tmp);
+	lem->pos_new = move->pos_new;
+	lem->pos_ants = move->pos_new;
+	move->pos_ants = move->pos_ants->next;
+	move->tmp = (t_room *)move->pos_ants->room;
+	move->room = choose_room(lem, send, move->tmp);
+}
 
-int		move_ants(t_lem *lem)
+void	move1(t_lem *lem, t_send *send, t_move *move)
+{
+	move->pos_new = NULL;
+	move->pos_ants = lem->pos_ants;
+	move->tmp = (t_room *)move->pos_ants->room;
+	move->room = choose_room(lem, send, move->tmp);
+}
+
+int		move_ants(t_lem *lem, t_send *send)
 {
 	t_move	move;
 
-	move.pos_new = NULL;
-	move.pos_ants = lem->pos_ants;
-	move.tmp = (t_room *)move.pos_ants->room;
-	move.room = choose_room(lem, move.tmp);
+	move1(lem, send, &move);
 	if (!move.room && move.pos_ants->next)
-	{
-		move.pos_new = linknew(move.tmp);
-		lem->pos_new = move.pos_new;
-		lem->pos_ants = move.pos_new;
-		move.pos_ants = move.pos_ants->next;
-		move.tmp = (t_room *)move.pos_ants->room;
-		move.room = choose_room(lem, move.tmp);
-	}
+		move2(lem, send, &move);
 	else if (!move.room)
 		return (0);
 	while (move.room == lem->end && move.pos_ants->next)
@@ -40,78 +53,10 @@ int		move_ants(t_lem *lem)
 		move.tmp_node = move.pos_ants;
 		move.pos_ants = move.pos_ants->next;
 		if (move.pos_ants)
-		{
-			move.tmp = (t_room *)move.pos_ants->room;
-			move.room = choose_room(lem, move.tmp);
-			if (!move.room && !move.pos_new)
-			{
-				move.pos_new = linknew(move.tmp);
-				lem->pos_new = move.pos_new;
-				lem->pos_ants = move.pos_new;	
-				move.pos_ants = move.pos_ants->next;
-				if (move.pos_ants)
-				{
-					move.tmp = (t_room *)move.pos_ants->room;
-					move.room = choose_room(lem, move.tmp);
-				}
-			}
-			else if (!move.room && move.pos_new)
-			{
-				move.pos_new->next = linknew(move.room);
-				move.pos_new = move.pos_new->next;
-				lem->pos_new_last = move.pos_new;
-				if (move.pos_ants)
-				{
-					move.tmp = (t_room *)move.pos_ants->room;
-					move.room = choose_room(lem, move.tmp);
-				}
-			}
-			else if (move.room != lem->end && move.pos_new)
-			{
-				move.pos_new->next = linknew(move.room);
-				move.pos_new = move.pos_new->next;
-				lem->pos_new_last = move.pos_new;
-			}
-			else if (move.room != lem->end)
-			{
-				move.pos_new = linknew(move.room);
-				lem->pos_new = move.pos_new;
-				lem->pos_ants = move.pos_new;
-			}
-		}		
+			move3(lem, send, &move);
 	}
 	if (!move.pos_new)
-	{
-		move.pos_new = linknew(move.room);
-		lem->pos_new = move.pos_new;
-		lem->pos_ants = move.pos_new;
-	}
-	while (move.pos_ants)
-	{
-		move.room->ant = move.tmp->ant;
-		move.tmp->ant = 0;
-		move.tmp_node = move.pos_ants;
-		move.pos_ants = move.pos_ants->next;
-		if (move.pos_ants)
-		{
-			move.tmp = (t_room *)move.pos_ants->room;
-			move.room = choose_room(lem, move.tmp);
-			if (!move.room)
-			{
-				move.pos_new->next = linknew(move.tmp);
-				move.pos_new = move.pos_new->next;
-				lem->pos_new_last = move.pos_new;			
-				free(move.tmp_node);
-				break ;
-			}
-			if (move.room != lem->end)
-			{
-				move.pos_new->next = linknew(move.room);
-				move.pos_new = move.pos_new->next;
-				lem->pos_new_last = move.pos_new;
-			}
-		}
-		free(move.tmp_node);
-	}
+		move4(lem, &move);
+	move5(lem, send, &move);
 	return (0);
 }

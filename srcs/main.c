@@ -49,7 +49,7 @@ void	read_input(t_lem *lem)
 
 	while (get_next_line(0, &lem->buffer))
 	{
-		if(!check_start(lem) && lem->buffer[0] != '#')
+		if (!check_start(lem) && lem->buffer[0] != '#')
 		{
 			arr = ft_strsplit(lem->buffer, ' ');
 			if (ft_arrlen(arr) == 3 && lem->buffer[0] != 'L')
@@ -92,53 +92,19 @@ void	assign_values(t_lem *lem, t_room *tmp)
 	lem->count--;
 }
 
-
-void	visualize(t_lem *lem)
-{
-	t_room	*room;
-
-	if (lem->visualizer)
-	{
-		room = lem->rooms_head;
-		while (room)
-		{
-			ft_putstr("\n");
-			ft_putstr(room->name);
-			ft_putchar(' ');
-			ft_putnbr(room->ant);
-			ft_putchar(' ');
-			room = room->next;
-		}
-		ft_putstr("\n");
-		sleep(1);
-	}
-}
-
 int		main(int argc, char **argv)
 {
 	t_lem	lem;
-	t_room *room;
 
 	set_zero(&lem);
 	if (argc == 2)
 		if (!strcmp(argv[1], "-v"))
 			lem.visualizer = 1;
-	ft_putnbr(lem.visualizer);
 	count_ants(&lem);
 	read_input(&lem);
 	assign_values(&lem, lem.end);
 	send_ants(&lem);
-	room = lem.rooms_head;
-	while (room)
-	{
-		ft_putstr("\n");
-		ft_putstr(room->name);
-		ft_putchar(' ');
-		ft_putnbr(room->ant);
-		ft_putchar(' ');
-		room = room->next;
-	}
-	ft_putstr("\n");
+	visualize(&lem);
 	delmem(&lem, 0);
 	return (0);
 }

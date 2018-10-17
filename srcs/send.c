@@ -12,28 +12,7 @@
 
 #include "../lem-in.h"
 
-void	visualize(t_lem *lem)
-{
-	t_room	*room;
-
-	if (lem->visualizer)
-	{
-		room = lem->rooms_head;
-		while (room)
-		{
-			ft_putstr("\n");
-			ft_putstr(room->name);
-			ft_putchar(' ');
-			ft_putnbr(room->ant);
-			ft_putchar(' ');
-			room = room->next;
-		}
-		ft_putstr("\n");
-		sleep(1);
-	}
-}
-
-t_room	*choose_room(t_lem *lem, t_room *current)
+t_room	*choose_room(t_lem *lem, t_send *send, t_room *current)
 {
 	t_links *links;
 	t_room	*room;
@@ -42,7 +21,7 @@ t_room	*choose_room(t_lem *lem, t_room *current)
 	links = current->links_head;
 	tmp = NULL;
 	if (current == lem->end)
-		return(tmp);
+		return (tmp);
 	while (links)
 	{
 		room = (t_room *)links->room;
@@ -59,7 +38,18 @@ t_room	*choose_room(t_lem *lem, t_room *current)
 		}
 		links = links->next;
 	}
-	return(tmp);
+	if (tmp && !lem->visualizer)
+	{
+		ft_putstr("L");
+		if (current == lem->start)
+			ft_putnbr(send->count);
+		else
+			ft_putnbr(current->ant);
+		ft_putstr("-");
+		ft_putstr(tmp->name);
+		ft_putstr(" ");
+	}
+	return (tmp);
 }
 
 void	search_party(t_lem *lem)
@@ -87,54 +77,67 @@ void	search_party(t_lem *lem)
 	}
 }
 
-void	send_ants_end(t_lem *lem)
+void	send_ants_end(t_lem *lem, t_send *send)
 {
 	while (lem->end->ant != lem->n_total)
 	{
+		if (!lem->visualizer)
+			ft_putstr("\n");
 		visualize(lem);
-		move_ants(lem);
+		move_ants(lem, send);
 	}
 	search_party(lem);
 	while (lem->n_end)
-	{	
+	{
+		if (!lem->visualizer)
+			ft_putstr("\n");
 		visualize(lem);
-		move_ants(lem);
+		move_ants(lem, send);
 		search_party(lem);
 	}
 }
 
+int		send_while(t_lem *lem, t_send *send)
+{
+	while (send->room)
+	{
+		send->room->ant = send->count;
+		send->count++;
+		lem->n_ants--;
+		if (!lem->n_ants)
+			return (0);
+		send->room = choose_room(lem, send, lem->start);
+		if (!send->room)
+			return (0);
+		send->pos_ants->next = linknew(send->room);
+		send->pos_ants = send->pos_ants->next;
+	}
+	return (0);
+}
+
 void	send_ants(t_lem *lem)
 {
-	t_room	*room;
-	t_links	*pos_ants;
-	int		count;
+	t_send	send;
 
-	count = 1;
+	send.count = 1;
 	while (lem->n_ants)
 	{
-		room = choose_room(lem, lem->start);
-		pos_ants = linknew(room);
-		lem->pos_ants = pos_ants;
-		while(room)
-		{
-			room->ant = count;
-			count++;
-			lem->n_ants--;
-			if (!lem->n_ants)
-				break ;
-			room = choose_room(lem, lem->start);
-			if (!room)
-				break ;
-			pos_ants->next = linknew(room);
-			pos_ants = pos_ants->next;
-		}
+		send.room = choose_room(lem, &send, lem->start);
+		send.pos_ants = linknew(send.room);
+		lem->pos_ants = send.pos_ants;
+		send_while(lem, &send);
 		if (lem->pos_new)
 		{
-			pos_ants = lem->pos_ants;
+			send.pos_ants = lem->pos_ants;
 			lem->pos_ants = lem->pos_new;
-			lem->pos_new_last->next = pos_ants;
+			lem->pos_new_last->next = send.pos_ants;
 		}
 		visualize(lem);
-		move_ants(lem);
+		if (!lem->visualizer)
+			ft_putstr("\n");
+		move_ants(lem, &send);
 	}
+	send_ants_end(lem, &send);
+	if (!lem->visualizer)
+		ft_putstr("\n");
 }
