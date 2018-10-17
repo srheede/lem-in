@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:55:29 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/17 14:47:56 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lem-in.h"
+#include "../lem_in.h"
 
 void	set_zero(t_lem *lem)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem-in.h                                           :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 18:43:57 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:50:08 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/17 14:57:20 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef	struct		s_send
 	int				count;
 }					t_send;
 
+typedef	struct		s_choose
+{
+	t_links			*links;
+	t_room			*room;
+	t_room			*tmp;
+}					t_choose;
+
 typedef struct		s_lem
 {
 	int				count;
@@ -81,6 +88,7 @@ void				send_ants(t_lem *lem);
 int					move_ants(t_lem *lem, t_send *send);
 void				move3(t_lem *lem, t_send *send, t_move *move);
 void				move5(t_lem *lem, t_send *send, t_move *move);
+void				result(t_lem *lem, t_send *send, t_room *tmp, t_room *curr);
 void				visualize(t_lem *lem);
 
 #endif

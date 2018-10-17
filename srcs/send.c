@@ -1,55 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   send.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:55:29 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/17 14:56:33 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lem-in.h"
+#include "../lem_in.h"
 
 t_room	*choose_room(t_lem *lem, t_send *send, t_room *current)
 {
-	t_links *links;
-	t_room	*room;
-	t_room	*tmp;
+	t_choose	ch;
 
-	links = current->links_head;
-	tmp = NULL;
+	ch.links = current->links_head;
+	ch.tmp = NULL;
 	if (current == lem->end)
-		return (tmp);
-	while (links)
+		return (ch.tmp);
+	while (ch.links)
 	{
-		room = (t_room *)links->room;
-		if (room == lem->end)
+		ch.room = (t_room *)ch.links->room;
+		if (ch.room == lem->end)
 		{
-			tmp = room;
+			ch.tmp = ch.room;
 			lem->n_end--;
 			break ;
 		}
-		if (!room->ant)
+		if (!ch.room->ant)
 		{
-			if ((!tmp || tmp->end > room->end) && room->end)
-				tmp = room;
+			if ((!ch.tmp || ch.tmp->end > ch.room->end) && ch.room->end)
+				ch.tmp = ch.room;
 		}
-		links = links->next;
+		ch.links = ch.links->next;
 	}
-	if (tmp && !lem->visualizer)
-	{
-		ft_putstr("L");
-		if (current == lem->start)
-			ft_putnbr(send->count);
-		else
-			ft_putnbr(current->ant);
-		ft_putstr("-");
-		ft_putstr(tmp->name);
-		ft_putstr(" ");
-	}
-	return (tmp);
+	result(lem, send, ch.tmp, current);
+	return (ch.tmp);
 }
 
 void	search_party(t_lem *lem)

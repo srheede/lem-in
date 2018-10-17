@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:55:29 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/17 14:57:33 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lem-in.h"
-
+#include "../lem_in.h"
 
 void	visualize(t_lem *lem)
 {
@@ -31,6 +30,21 @@ void	visualize(t_lem *lem)
 		}
 		ft_putstr("\n");
 		sleep(1);
+	}
+}
+
+void	result(t_lem *lem, t_send *send, t_room *tmp, t_room *curr)
+{
+	if (tmp && !lem->visualizer)
+	{
+		ft_putstr("L");
+		if (curr == lem->start)
+			ft_putnbr(send->count);
+		else
+			ft_putnbr(curr->ant);
+		ft_putstr("-");
+		ft_putstr(tmp->name);
+		ft_putstr(" ");
 	}
 }
 
