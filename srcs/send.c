@@ -6,7 +6,7 @@
 /*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/10/22 15:42:04 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/22 15:46:38 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ void	send_ants(t_lem *lem)
 	{
 		send.room = choose_room(lem, &send, lem->start);
 		send.pos_ants = linknew(send.room);
-		if (send.pos_ants)
-			free(send.pos_ants);
 		lem->pos_ants = send.pos_ants;
 		send_while(lem, &send);
 		if (lem->pos_new)
