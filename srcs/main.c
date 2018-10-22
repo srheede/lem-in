@@ -46,7 +46,9 @@ void	delmem(t_lem *lem, int err)
 void	read_input(t_lem *lem)
 {
 	char	**arr;
+	int		err;
 
+	err = 0;
 	while (get_next_line(0, &lem->buffer))
 	{
 		if (!check_start(lem) && lem->buffer[0] != '#')
@@ -64,7 +66,10 @@ void	read_input(t_lem *lem)
 			ft_putchar('\n');
 		}
 		ft_strdel(&lem->buffer);
+		err++;
 	}
+	if (!err)
+		delmem(lem, 1);
 	if (lem->buffer)
 		ft_strdel(&lem->buffer);
 	ft_putchar('\n');
