@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srheede <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: srheede <srheede@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/26 15:30:46 by srheede           #+#    #+#              #
-#    Updated: 2018/08/24 16:52:14 by srheede          ###   ########.fr        #
+#    Updated: 2018/10/22 14:00:11 by srheede          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ SRCS = *.c
 
 OBJ = $(SRCS:.c=.o)
 
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g
 
 $(NAME):
-	@make -C libft/
-	@gcc $(FLAG) $(addprefix srcs/, $(SRCS)) -L ./libft -lft -o $(NAME)
+	make -C libft/
+	gcc $(FLAG) $(addprefix srcs/, $(SRCS)) -L ./libft -lft -o $(NAME)
 	@printf "\e[32m[✓] LEM-IN COMPILED\n\e[0m"
-	@make -C ./ clean
+	make -C ./ clean
 
 .PHONY: all
 all: $(NAME)

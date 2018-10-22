@@ -6,7 +6,7 @@
 /*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/10/17 14:47:56 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/22 15:16:42 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	read_input(t_lem *lem)
 	int		err;
 
 	err = 0;
-	while (get_next_line(0, &lem->buffer))
+	while (get_next_line(lem->fd, &lem->buffer))
 	{
 		if (!check_start(lem) && lem->buffer[0] != '#')
 		{
@@ -105,11 +105,13 @@ int		main(int argc, char **argv)
 	if (argc == 2)
 		if (!strcmp(argv[1], "-v"))
 			lem.visualizer = 1;
+	lem.fd = open("ant_farm_map.txt", O_RDONLY);
 	count_ants(&lem);
 	read_input(&lem);
 	assign_values(&lem, lem.end);
 	send_ants(&lem);
 	visualize(&lem);
+	close(lem.fd);
 	delmem(&lem, 0);
 	return (0);
 }

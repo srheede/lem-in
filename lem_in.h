@@ -6,7 +6,7 @@
 /*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 18:43:57 by srheede           #+#    #+#             */
-/*   Updated: 2018/10/17 14:57:20 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/22 15:11:54 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_lem
 	int				n_total;
 	int				visualizer;
 	int				*arr;
+	int				fd;
 	char			*buffer;
 	char			*number;
 	t_room			*start;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:55:29 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/22 15:14:07 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	count_ants(t_lem *lem)
 {
-	if (!get_next_line(0, &lem->buffer))
+	if (!get_next_line(lem->fd, &lem->buffer))
 		delmem(lem, 1);
 	lem->number = ft_itoa(ft_atoi(lem->buffer));
 	if (strcmp(lem->buffer, lem->number) || ft_atoi(lem->buffer) < 1)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srheede <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: srheede <srheede@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/26 15:30:46 by srheede           #+#    #+#              #
-#    Updated: 2018/05/22 23:15:13 by srheede          ###   ########.fr        #
+#    Updated: 2018/10/22 14:00:58 by srheede          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ HEADER = libft.h
 OBJ = ./*.o
 
 
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g
 
 $(NAME):
-	@gcc $(FLAG) -c $(SRCS) -I $(HEADER)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
+	gcc $(FLAG) -c $(SRCS) -I $(HEADER)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 	@printf "\e[32m[✓] LIBFT COMPILED\n"
-	@make -C ./ clean
+	make -C ./ clean
 
 .PHONY: all
 all: $(NAME)

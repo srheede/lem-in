@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rooms.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srheede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: srheede <srheede@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:11:04 by srheede           #+#    #+#             */
-/*   Updated: 2018/08/29 17:55:29 by srheede          ###   ########.fr       */
+/*   Updated: 2018/10/22 15:14:27 by srheede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	set_start(t_lem *lem)
 	char	**arr;
 
 	ft_strdel(&lem->buffer);
-	get_next_line(0, &lem->buffer);
+	get_next_line(lem->fd, &lem->buffer);
 	arr = ft_strsplit(lem->buffer, ' ');
 	if (ft_arrlen(arr) == 3)
 		create_room(lem, arr);
@@ -79,7 +79,7 @@ void	set_end(t_lem *lem)
 	char	**arr;
 
 	ft_strdel(&lem->buffer);
-	get_next_line(0, &lem->buffer);
+	get_next_line(lem->fd, &lem->buffer);
 	arr = ft_strsplit(lem->buffer, ' ');
 	if (ft_arrlen(arr) == 3)
 		create_room(lem, arr);
