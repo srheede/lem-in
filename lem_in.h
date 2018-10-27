@@ -60,13 +60,13 @@ typedef	struct		s_choose
 
 typedef struct		s_lem
 {
+	int				check;
 	int				count;
 	int				n_ants;
 	int				n_end;
 	int				n_total;
 	int				visualizer;
 	int				*arr;
-	int				fd;
 	char			*buffer;
 	char			*number;
 	t_room			*start;

@@ -16,6 +16,7 @@ void	move4(t_lem *lem, t_move *move)
 {
 	move->pos_new = linknew(move->room);
 	lem->pos_new = move->pos_new;
+	lem->pos_new_last = move->pos_new;
 	lem->pos_ants = move->pos_new;
 }
 
@@ -23,6 +24,7 @@ void	move2(t_lem *lem, t_send *send, t_move *move)
 {
 	move->pos_new = linknew(move->tmp);
 	lem->pos_new = move->pos_new;
+	lem->pos_new_last = move->pos_new;
 	lem->pos_ants = move->pos_new;
 	move->pos_ants = move->pos_ants->next;
 	move->tmp = (t_room *)move->pos_ants->room;

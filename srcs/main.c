@@ -24,6 +24,7 @@ void	set_zero(t_lem *lem)
 	lem->n_ants = 0;
 	lem->n_end = 0;
 	lem->count = 0;
+	lem->check = 0;
 	lem->visualizer = 0;
 	lem->pos_ants = NULL;
 	lem->pos_new = NULL;
@@ -49,7 +50,7 @@ void	read_input(t_lem *lem)
 	int		err;
 
 	err = 0;
-	while (get_next_line(lem->fd, &lem->buffer))
+	while (get_next_line(0, &lem->buffer))
 	{
 		if (!check_start(lem) && lem->buffer[0] != '#')
 		{
@@ -86,7 +87,10 @@ void	assign_values(t_lem *lem, t_room *tmp)
 	{
 		room = (t_room *)tmp_links->room;
 		if (room == lem->start)
+		{
+			lem->check = 1;
 			break ;
+		}
 		if ((room->end > lem->count || room->end == 0) && room != lem->end)
 		{
 			room->end = lem->count;
@@ -105,13 +109,15 @@ int		main(int argc, char **argv)
 	if (argc == 2)
 		if (!strcmp(argv[1], "-v"))
 			lem.visualizer = 1;
-	lem.fd = open("ant_farm_map.txt", O_RDONLY);
 	count_ants(&lem);
 	read_input(&lem);
+	if (!lem.start || !lem.end)
+		delmem(&lem, 1);
 	assign_values(&lem, lem.end);
+	if (!lem.check)
+		delmem(&lem, 1);
 	send_ants(&lem);
 	visualize(&lem);
-	close(lem.fd);
 	delmem(&lem, 0);
 	return (0);
 }

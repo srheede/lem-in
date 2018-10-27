@@ -61,7 +61,7 @@ void	set_start(t_lem *lem)
 	char	**arr;
 
 	ft_strdel(&lem->buffer);
-	get_next_line(lem->fd, &lem->buffer);
+	get_next_line(0, &lem->buffer);
 	arr = ft_strsplit(lem->buffer, ' ');
 	if (ft_arrlen(arr) == 3)
 		create_room(lem, arr);
@@ -79,7 +79,7 @@ void	set_end(t_lem *lem)
 	char	**arr;
 
 	ft_strdel(&lem->buffer);
-	get_next_line(lem->fd, &lem->buffer);
+	get_next_line(0, &lem->buffer);
 	arr = ft_strsplit(lem->buffer, ' ');
 	if (ft_arrlen(arr) == 3)
 		create_room(lem, arr);

@@ -14,7 +14,7 @@
 
 void	count_ants(t_lem *lem)
 {
-	if (!get_next_line(lem->fd, &lem->buffer))
+	if (!get_next_line(0, &lem->buffer))
 		delmem(lem, 1);
 	lem->number = ft_itoa(ft_atoi(lem->buffer));
 	if (strcmp(lem->buffer, lem->number) || ft_atoi(lem->buffer) < 1)

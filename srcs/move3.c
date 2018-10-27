@@ -64,6 +64,7 @@ void	move3a(t_lem *lem, t_send *send, t_move *move)
 {
 	move->pos_new = linknew(move->tmp);
 	lem->pos_new = move->pos_new;
+	lem->pos_new_last = move->pos_new;
 	lem->pos_ants = move->pos_new;
 	move->pos_ants = move->pos_ants->next;
 	if (move->pos_ants)
@@ -91,6 +92,7 @@ void	move3(t_lem *lem, t_send *send, t_move *move)
 	{
 		move->pos_new = linknew(move->room);
 		lem->pos_new = move->pos_new;
+		lem->pos_new_last = move->pos_new;
 		lem->pos_ants = move->pos_new;
 	}
 }
