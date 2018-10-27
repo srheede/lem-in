@@ -22,11 +22,11 @@ OBJ = ./*.o
 FLAG = -Wall -Werror -Wextra -g
 
 $(NAME):
-	gcc $(FLAG) -c $(SRCS) -I $(HEADER)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@gcc $(FLAG) -c $(SRCS) -I $(HEADER)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 	@printf "\e[32m[✓] LIBFT COMPILED\n"
-	make -C ./ clean
+	@make -C ./ clean
 
 .PHONY: all
 all: $(NAME)
